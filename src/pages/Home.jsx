@@ -4,9 +4,18 @@ import './Home.css';
 
 const getIdFromUrl = (url) => url.substring(url.lastIndexOf('/', url.lastIndexOf('/') - 1) + 1, url.lastIndexOf('/'));
 
+export const getPaginationLinks = (elementsAmount, elementsPerPage) => {
+    const pagesAmount = elementsAmount / elementsPerPage;
+    const linksData = []
+    for (let i = 0; i < pagesAmount; i++) {
+        linksData.push(i);
+    }
+    return linksData;
+};
+
 const Home = () => {
     const [characters, setCharacters] = useState([]);
-
+    const [paginationLinks, setPaginationLinks] = useState([]);
     useEffect(() => {
         axios
             .get(`https://swapi.dev/api/people/`)
@@ -17,7 +26,7 @@ const Home = () => {
                     return character;
                 });
                 setCharacters(results);
-                console.log(res.data)
+                setPaginationLinks(getPaginationLinks(res.data.count, res.data.results.length));
             })
     }, [])
 
@@ -33,6 +42,12 @@ const Home = () => {
                             <img width="300px" src={`https://starwars-visualguide.com/assets/img/characters/${character.id}.jpg`} alt={character.name} />
                         </a>
                     </div>
+                ))}
+            </div>
+            <br />
+            <div className="pagination">
+                {paginationLinks.map((page) => (
+                    <a key={page} href={`/page/${page}`}>{page + 1}</a>
                 ))}
             </div>
         </div>

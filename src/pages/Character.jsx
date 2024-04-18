@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-
+//import { useNavigate } from 'react-router-dom';
 
 const Character = () => {
     const { id } = useParams();
@@ -9,7 +9,11 @@ const Character = () => {
     const [films, setFilms] = useState([]);
     const [species, setSpecies] = useState([]);
     const [homeworld, setHomeworld] = useState({});
-
+    /*     const navigate = useNavigate();
+    
+        const pulsado = (page) => {
+            navigate(`/character/${parseInt(id) + page}`);
+        } */
     useEffect(() => {
         axios
             .get(`https://swapi.dev/api/people/${id}`)
@@ -61,6 +65,13 @@ const Character = () => {
                 ))}
             </ul>
             <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} alt={id} />
+            {/* <br />
+            <div>{
+                parseInt(id) > 1 &&
+                <button onClick={pulsado(-1)}>Back</button>
+            }
+                <button onClick={pulsado(+1)}>Next</button>
+            </div> */}
         </div>
     )
 }
