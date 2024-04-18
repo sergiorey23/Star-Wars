@@ -27,11 +27,11 @@ const Home = () => {
             <div className="container">
                 {characters.map((character) => (
                     <div key={character.name}>
-                        <a href={`/character/${character.url.split('/')[5]}`}>
+                        <a href={`/character/${character.id}`} target="_blank">
                             {character.name}
+                            <br />
+                            <img width="300px" src={`https://starwars-visualguide.com/assets/img/characters/${character.id}.jpg`} alt={character.name} />
                         </a>
-                        <br />
-                        <img width="300px" src={`https://starwars-visualguide.com/assets/img/characters/${character.id}.jpg`} alt={character.name} />
                     </div>
                 ))}
             </div>
