@@ -5,6 +5,7 @@ const getIdFromUrl = (url) => url.substring(url.lastIndexOf('/', url.lastIndexOf
 
 const Home = () => {
     const [characters, setCharacters] = useState([]);
+    const [charactersImg, setCharactersImg] = useState([]);
     useEffect(() => {
         axios
             .get(`https://swapi.dev/api/people/`)
