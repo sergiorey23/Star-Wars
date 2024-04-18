@@ -17,8 +17,9 @@ export const getPaginationLinks = (elementsAmount, elementsPerPage) => {
 const Home = () => {
     const [characters, setCharacters] = useState([]);
     const [paginationLinks, setPaginationLinks] = useState([]);
-    const query = new URLSearchParams(useLocation().search);
-    const page = query.get('page') || 1;
+    const [page, setPage] = useState(1);
+    //const query = new URLSearchParams(useLocation().search);
+    //const page = query.get('page') || 1;
     useEffect(() => {
         axios
             .get(`https://swapi.dev/api/people?page=${page}`)
@@ -31,7 +32,7 @@ const Home = () => {
                 setCharacters(results);
                 setPaginationLinks(getPaginationLinks(res.data.count, 10));
             })
-    }, [])
+    }, [page])
 
     return (
         <div>
@@ -52,7 +53,10 @@ const Home = () => {
             <br />
             <div className="pagination">
                 {paginationLinks.map((link) => (
-                    <a style={{ margin: "10px" }} key={link} href={`?page=${link + 1}`}>{link + 1}</a>
+                    <a style={{ margin: "10px" }} key={link} href="" onClick={
+                        (e) => { e.preventDefault(); setPage(link + 1) }
+                    }>{link + 1}</a>
+                    // <a style={{ margin: "10px" }} key={link} href={`?page=${link + 1}`}>{link + 1}</a>
                 ))}
             </div>
         </div >
